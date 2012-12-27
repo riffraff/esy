@@ -2,18 +2,21 @@
 Stack = [0]
 Dict = {}
 BINOPS =  %w[+ - * / & | ^]
-START_DEF, END_DEF, START_IF, END_IF, OUTC, POP, SWAP, DUP = '☊', '☋', '☾', '☽', '☿', '♁', '☍', '♊'
+START_DEF, END_DEF, START_IF, START_ELSE, END_IF, OUTC, ORD, POP, SWAP, DUP = '☊', '☋', '☾','☉', '☽', '☿','♃', '♁', '☍', '♊'
 
 $def = $skip = nil
 
 def meval l
-  return :skip if $skip && l != END_IF
+  return :skip if $skip && ![END_IF, START_ELSE].include?(l)
   return $def << l if $def &&  l != END_DEF
   case l
   when /\A\d+\Z/
     Stack.push l.to_i
   when *BINOPS
-    Stack.push eval("#{Stack.pop} #{l} #{Stack.pop}")
+    a, b = Stack.pop, Stack.pop
+    Stack.push eval("#{b} #{l} #{a}")
+  when ORD
+    Stack.push Stack.pop.to_s.ord
   when OUTC
     print Stack.pop.chr
   when POP
@@ -24,6 +27,8 @@ def meval l
     Stack.push Stack.last
   when START_IF
     $skip = Stack.pop == 0
+  when START_ELSE
+    $skip = !$skip
   when END_IF
     $skip = false
   when START_DEF
@@ -33,8 +38,9 @@ def meval l
     Dict[name] = lambda { code.each {|op| meval op } }
     $def = nil
   else 
+    p [:call, Stack]
     Dict[l].call
   end
 end
 
-ARGF.read.scan(/\S+/) { |word|  meval word }
+ARGF.read.scan(/\S+/) { |word|  meval word; p Stack; p word; sleep 1 }

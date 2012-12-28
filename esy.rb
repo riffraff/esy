@@ -2,8 +2,8 @@
 Stack = [0]
 Dict = {}
 BINOPS =  %w[+ - * / & | ^]
-START_DEF, END_DEF, START_IF, START_ELSE, END_IF, OUTC, ORD, POP, SWAP, DUP = 
-'☊',       '☋',     '☾',      '☉',        '☽',    '☿',  '♃', '♁', '☍',  '♊'
+START_DEF, END_DEF, START_IF, START_ELSE, END_IF, OUTC, ORD, CHR, POP, SWAP, DUP = 
+'☊',       '☋',     '☾',      '☉',        '☽',    '☿',  '♃', '♅', '♁', '☍',  '♊'
 
 $def = $skip = nil
 
@@ -11,6 +11,8 @@ def meval l
   return :skip if $skip && ![END_IF, START_ELSE].include?(l)
   return $def << l if $def &&  l != END_DEF
   case l
+  when /[a-z']+/i
+    Stack.push(l.chars.inject(0) {|acc, el| acc + el.ord } / l.chars.to_a.size / 2)
   when /\A\d+\Z/
     Stack.push l.to_i
   when *BINOPS
@@ -18,6 +20,8 @@ def meval l
     Stack.push eval("#{b} #{l} #{a}")
   when ORD
     Stack.push Stack.pop.to_s.ord
+  when CHR
+    Stack.push Stack.pop.chr.to_i
   when OUTC
     print Stack.pop.chr
   when POP

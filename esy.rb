@@ -1,7 +1,7 @@
 # coding: utf-8
 Stack = [0]
 Dict = {}
-BINOPS =  %w[+ - * / & | ^]
+BINOPS =  %w[+ ! - * / & | ^]
 START_DEF, END_DEF, START_IF, START_ELSE, END_IF, OUTC, ORD, CHR, POP, SWAP, DUP = 
 '☊',       '☋',     '☾',      '☉',        '☽',    '☿',  '♃', '♅', '♁', '☍',  '♊'
 
@@ -13,11 +13,15 @@ def meval l
   case l
   when /[a-z']+/i
     Stack.push(l.chars.inject(0) {|acc, el| acc + el.ord } / l.chars.to_a.size / 2)
+  when  /⚶+/
+    Stack.push Stack.pop + 1*l.size
+  when /⚵+/
+    Stack.push Stack.pop * 2**l.size
   when /\A\d+\Z/
     Stack.push l.to_i
   when *BINOPS
     a, b = Stack.pop, Stack.pop
-    Stack.push eval("#{b} #{l} #{a}")
+    Stack.push eval("#{b} #{l.sub("!","+")} #{a}")
   when ORD
     Stack.push Stack.pop.to_s.ord
   when CHR
@@ -47,4 +51,4 @@ def meval l
   end
 end
 
-ARGF.read.scan(/\S+/) { |word|  meval word }
+ARGF.read.scan(/\S+/) { |word|  meval word; p Stack if $DEBUG}

@@ -7,6 +7,10 @@ It is actually a sort of minimal somewhat broken FORTH, namely you have a
 STACK and a DICTIONARY in wich you can store WORDs. 
 Each WORD can push or pop any number of arguments from the STACK. 
 
+A program is a list of WORDs separated by whitespace. 
+It's nice when everything can be parsed with a regex. 
+
+
 LITERALS
 
 Just use a number if you are a coward, but real esyists will use arcane literals such as 

@@ -18,7 +18,7 @@ Just use a number if you are a coward, but real esyists will use arcane literals
 "mglw'nafh" and "IA!"
 
 Every non-whitespace token which as not been declared as a WORD in the dictionary evaluates to half the 
-average of value of the letters used in it. For example  
+average of the values of the letters used in it. For example  
 
     mglw'nafh 
 
@@ -29,7 +29,7 @@ evaluates to 49 while
 will evaluate to 48.
 
 
-In the topic of staying faithful to the world "esoteric", esy uses astonomical symbols for mosth builtin WORDs.
+In the topic of staying faithful to the world "esoteric", esy uses astonomical symbols for most builtin WORDs.
 
 Basic functionality includes:
 

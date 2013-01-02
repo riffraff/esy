@@ -45,12 +45,12 @@ Basic functionality includes:
 
     ☍
 
-* to dup to the top of the STACK use Gemini
+* to dup the top of the STACK use Gemini
 
     ♊
 
 
-Jupiter and Uranus have somewhat similar roles, being both at some point, heads of the panthen: 
+Jupiter and Uranus have somewhat similar roles, being both at some point, heads of the panthoen: 
 
 * Jupiter will convert the top of the STACK to a string (0->"0"), then take the ascii value of it ("48")
 

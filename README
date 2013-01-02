@@ -1,0 +1,127 @@
+ESY
+
+esy is a small example of an esoteric language or turing tarpit built for the forts PLT Games 
+competition, but without any hope of winning.
+
+It is actually a sort of minimal somewhat broken FORTH, namely you have a 
+STACK and a DICTIONARY in wich you can store WORDs. 
+Each WORD can push or pop any number of arguments from the STACK. 
+
+LITERALS
+
+Just use a number if you are a coward, but real esyists will use arcane literals such as 
+
+"mglw'nafh" and "IA!"
+
+Every non-whitespace token which as not been declared as a WORD in the dictionary evaluates to half the 
+average of value of the letters used in it. For example  
+
+    mglw'nafh 
+
+evaluates to 49 while 
+
+    wgah'nagl
+
+will evaluate to 48.
+
+
+In the topic of staying faithful to the world "esoteric", esy uses astonomical symbols for mosth builtin WORDs.
+
+Basic functionality includes:
+
+* To pop an element from the STACK use the Mother Earth symbol, (stuff "pops" out of the earth)
+
+    ♁
+
+* to print the top element of the STACK as a character use Mercury (messenger)
+
+    ☿
+
+* to swap the top two elements use conjunction:
+
+    ☍
+
+* to dup to the top of the STACK use Gemini
+
+    ♊
+
+
+Jupiter and Uranus have somewhat similar roles, being both at some point, heads of the panthen: 
+
+* Jupiter will convert the top of the STACK to a string (0->"0"), then take the ascii value of it ("48")
+
+    ♃
+
+* Uranus will convert the top of the STACK to the corresponding ascii character (48->"0") then
+  convert it to an int ("0" -> 0)
+
+    ♅
+
+
+* Vesta will evaluate to the STACK plus the number of times it is repeated, e.g.
+
+
+    ⚶
+    ⚶⚶⚶
+
+  will replace, respectively, the STACK top with it's successor, and with the same value plus 3.
+
+
+* In a similar way, Juno will multiply the top of the STACK by a power of two corresponging to how many 
+  times it's invoked, e.g.
+
+
+    ⚵
+    ⚵⚵⚵
+
+will multiply the STACK by 2 or by 8
+
+To start a new WORD definition use '☊' and use '☋' to end it. The syntax is
+
+
+    ☊ <name> <body> ☋ 
+
+For example if you wish to define a WORD that multiplies the last three elements on the STACK you can do
+
+    ☊ ** * * ☋ 
+
+Recursion is permitted and basically the only way to get a loop.
+
+
+For a conditional operation use the standard triplet of crescent moon (ifnonzero), sun (else), decrescent moon (end)
+
+      ☾',      '☉',        '☽'
+
+For example
+
+     ☾ 49 ☿ ☉ 48 ☿ ☽ 
+
+
+will print 0 or 1 depending on whether the top of the STACK is zero.
+
+
+RUNNING
+
+you can run the interpreter as 
+
+
+    ruby esy.rb <file>
+
+
+if file is missing it will read from standard input.
+
+Som examples are in the samples directory
+
+TODO, CONTRIBUTING etc
+
+
+I planned many things for Esy, but time ran out during the holydayd and due to the end of the current 
+PLT games competition I won't be working on it much more I am afraid :)
+
+Anyway fun stuff:
+
+* make the interpreter modal (split reader and evaluation), instead of the current mingled mess
+* make if/then/else work with function objects on the stack, way more fun
+* builtin TAP support
+
+
